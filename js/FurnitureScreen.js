@@ -46,7 +46,9 @@ function MainScreen({ navigation }) {
       (overlay7 ? 1 : 0) +
       (overlay8 ? 1 : 0) +
       (overlay9 ? 1 : 0);
-    return selectedCount < 4;
+
+      return selectedCount >= 4 ? false : true;
+
   };
   
   
@@ -63,7 +65,7 @@ function MainScreen({ navigation }) {
     (overlay8 ? 1 : 0) +
     (overlay9 ? 1 : 0);
 
-  if (selectedOverlaysCount === 0) {
+  if (selectedOverlaysCount < 4) {
     // 선택한 overlay가 없을 때 텍스트를 나타내기 위해 상태를 업데이트
     setShowMessage(true);
     return; // 이동하지 않음
