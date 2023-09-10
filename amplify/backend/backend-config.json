@@ -1,0 +1,43 @@
+{
+  "api": {
+    "api4fb83ff5": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "roombiLambda"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "roombiLambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_roombiLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "roombiLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_roombiLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "roombiLambda"
+        }
+      ]
+    }
+  }
+}
