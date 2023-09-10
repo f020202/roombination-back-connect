@@ -7,11 +7,11 @@ import * as Animatable from 'react-native-animatable';
 
 function MainScreen({ navigation }) {
   const [progressValue, setProgressValue] = useState(0);
-  const [inputText, setInputText] = useState('');
   const [isInputEmpty, setIsInputEmpty] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorViewRef, setErrorViewRef] = useState(null); // Add this state
 
+  const [inputText, setInputText] = useState('');
 
   useEffect(() => {
     setTimeout(() => {
@@ -42,7 +42,7 @@ function MainScreen({ navigation }) {
       navigation.navigate('color', {
         input_username: '',
         input_budget: inputText, 
-        input_cp: [],   
+        input_cp: [],
         input_fp: [],
       });
     }

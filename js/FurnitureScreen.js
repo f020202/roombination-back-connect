@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Button, StyleSheet, Text, View, Image, navigation, TouchableOpacity } from 'react-native';
 import * as Progress from 'react-native-progress';
 import { LinearGradient } from 'expo-linear-gradient'
-
+import { useRoute } from '@react-navigation/native';
 
 import imagePath1 from '../assets/furniture/bed.jpg';
 import imagePath2 from '../assets/furniture/desk.jpg';
@@ -19,6 +19,13 @@ import imagePath9 from '../assets/furniture/rug.jpg';
 
 function MainScreen({ navigation }) {
   const [progressValue, setProgressValue] = useState(0);
+
+  //Budget에서 받아온 데이터
+  const route = useRoute();
+  const { input_username } = route.params;
+  const { input_budget } = route.params;
+  const { input_cp } = route.params;
+  const { input_fp } = route.params;
 
   useEffect(() => {
     setTimeout(() => {
@@ -47,30 +54,30 @@ function MainScreen({ navigation }) {
       (overlay8 ? 1 : 0) +
       (overlay9 ? 1 : 0);
 
-      return selectedCount >= 4 ? false : true;
+    return selectedCount >= 4 ? false : true;
 
   };
-  
-  
+
+
 
   const handleNextPress = () => {
-    const selectedOverlaysCount = 
-    (overlay1 ? 1 : 0) +
-    (overlay2 ? 1 : 0) +
-    (overlay3 ? 1 : 0) +
-    (overlay4 ? 1 : 0) +
-    (overlay5 ? 1 : 0) +
-    (overlay6 ? 1 : 0) +
-    (overlay7 ? 1 : 0) +
-    (overlay8 ? 1 : 0) +
-    (overlay9 ? 1 : 0);
+    const selectedOverlaysCount =
+      (overlay1 ? 1 : 0) +
+      (overlay2 ? 1 : 0) +
+      (overlay3 ? 1 : 0) +
+      (overlay4 ? 1 : 0) +
+      (overlay5 ? 1 : 0) +
+      (overlay6 ? 1 : 0) +
+      (overlay7 ? 1 : 0) +
+      (overlay8 ? 1 : 0) +
+      (overlay9 ? 1 : 0);
 
-  if (selectedOverlaysCount < 4) {
-    // 선택한 overlay가 없을 때 텍스트를 나타내기 위해 상태를 업데이트
-    setShowMessage(true);
-    return; // 이동하지 않음
-  }
-  
+    if (selectedOverlaysCount < 4) {
+      // 선택한 overlay가 없을 때 텍스트를 나타내기 위해 상태를 업데이트
+      setShowMessage(true);
+      return; // 이동하지 않음
+    }
+
     // 선택한 overlay가 1개 이상인 경우 다음 화면으로 이동
     navigation.navigate('main');
   };
@@ -118,16 +125,20 @@ function MainScreen({ navigation }) {
 
     <View style={styles.container}>
       <Progress.Bar progress={progressValue} width={330} color="#99bdef" style={{ marginTop: 100 }} />
-      <Text style={{ textAlign:'center', marginTop:5, fontSize:12, color:"#99bdef" }} >90%</Text>
+      <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 12, color: "#99bdef" }} >90%</Text>
 
       <View style={styles.ask1}>
         <Text style={styles.askcolor}>추천받을 가구 4개를</Text>
         <Text style={styles.askcolor}>선택해주세요</Text>
-
       </View>
+
+
+      <Text>입력데이터: {input_budget}</Text>
+      <Text>입력데이터: {input_cp}</Text>
 
       <View style={styles.day2}>
         <View style={styles.day}>
+
 
           <TouchableOpacity style={styles.cparent} onPress={() => toggleOverlay1()}>
             <Image style={styles.cchildImage} source={imagePath1} />
