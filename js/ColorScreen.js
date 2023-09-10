@@ -11,6 +11,8 @@ import wood from '../assets/color/wood.jpg';
 
 function MainScreen({ navigation }) {
 
+  const [inputCP, setInputCP] = useState([]);
+
   //Budget에서 받아온 데이터
   const route = useRoute();
   const { input_budget } = route.params;
@@ -39,21 +41,50 @@ function MainScreen({ navigation }) {
 
   const toggleOverlay1 = () => {
     setOverlay1(!overlay1);
+
+    // overlay1 값에 따라 inputCP 업데이트
+    setInputCP(prevInputCP => {
+      if (overlay1) {
+        // overlay1이 true일 때 1을 추가
+        return [...prevInputCP, 1];
+      } else {
+        // overlay1이 false일 때 1을 제거
+        return prevInputCP.filter(item => item !== 1);
+      }
+    });
+    console.log(inputCP);
   }
   const toggleOverlay2 = () => {
     setOverlay2(!overlay2);
+
+    // overlay1 값에 따라 inputCP 업데이트
+    setInputCP(prevInputCP => {
+      if (overlay2) {
+        // overlay1이 true일 때 1을 추가
+        return [...prevInputCP, 2];
+      } else {
+        // overlay1이 false일 때 1을 제거
+        return prevInputCP.filter(item => item !== 2);
+      }
+    });
+
+    console.log(inputCP);
   }
   const toggleOverlay3 = () => {
     setOverlay3(!overlay3);
+    console.log(inputCP);
   }
   const toggleOverlay4 = () => {
     setOverlay4(!overlay4);
+    console.log(inputCP);
   }
   const toggleOverlay5 = () => {
     setOverlay5(!overlay5);
+    console.log(inputCP);
   }
   const toggleOverlay6 = () => {
     setOverlay6(!overlay6);
+    console.log(inputCP);
   }
 
   const isNoOverlaySelected = () => {
@@ -61,25 +92,30 @@ function MainScreen({ navigation }) {
   };
 
   const handleNextPress = () => {
-    const selectedOverlaysCount = 
-    (overlay1 ? 1 : 0) +
-    (overlay2 ? 1 : 0) +
-    (overlay3 ? 1 : 0) +
-    (overlay4 ? 1 : 0) +
-    (overlay5 ? 1 : 0) +
-    (overlay6 ? 1 : 0);
+    const selectedOverlaysCount =
+      (overlay1 ? 1 : 0) +
+      (overlay2 ? 1 : 0) +
+      (overlay3 ? 1 : 0) +
+      (overlay4 ? 1 : 0) +
+      (overlay5 ? 1 : 0) +
+      (overlay6 ? 1 : 0);
 
-  if (selectedOverlaysCount === 0) {
-    // 선택한 overlay가 없을 때 텍스트를 나타내기 위해 상태를 업데이트
-    setShowMessage(true);
-    return; // 이동하지 않음
-  }
-  
+    if (selectedOverlaysCount === 0) {
+      // 선택한 overlay가 없을 때 텍스트를 나타내기 위해 상태를 업데이트
+      setShowMessage(true);
+      return; // 이동하지 않음
+    }
+
     // 선택한 overlay가 1개 이상인 경우 다음 화면으로 이동
-    navigation.navigate('furniture');
+    navigation.navigate('furniture', {
+      input_username: '',
+      input_budget: input_budget,
+      input_cp: inputCP,
+      input_fp: [],
+    });
   };
-  
-  
+
+
 
 
 
