@@ -22,5 +22,23 @@
         "api4fb83ff5": {}
       }
     }
+  },
+  "roombi": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-roombiamplify-roombi-145953-authRole",
+      "UnauthRoleArn": "arn:aws:iam::599841102598:role/amplify-roombiamplify-roombi-145953-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::599841102598:role/amplify-roombiamplify-roombi-145953-authRole",
+      "Region": "ap-northeast-2",
+      "DeploymentBucketName": "amplify-roombiamplify-roombi-145953-deployment",
+      "UnauthRoleName": "amplify-roombiamplify-roombi-145953-unauthRole",
+      "StackName": "amplify-roombiamplify-roombi-145953",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:599841102598:stack/amplify-roombiamplify-roombi-145953/6ddfabe0-5068-11ee-a90a-06230bd5ea36",
+      "AmplifyAppId": "d12y2243eeg2cw"
+    },
+    "categories": {
+      "auth": {
+        "roombiamplify60af02a8": {}
+      }
+    }
   }
 }
