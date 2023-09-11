@@ -11,15 +11,6 @@ import wood from '../assets/color/wood.jpg';
 
 function MainScreen({ navigation }) {
 
-  const [inputCP, setInputCP] = useState([]);
-
-  //Budget에서 받아온 데이터
-  const route = useRoute();
-  const { input_budget } = route.params;
-
-  const [progressValue, setProgressValue] = useState(0);
-  const [showMessage, setShowMessage] = useState(false);
-
   useEffect(() => {
     setTimeout(() => {
       setProgressValue(0.3);
@@ -32,6 +23,15 @@ function MainScreen({ navigation }) {
     }, 100); // 1초 후에 0.3으로 변경 (원하는 시간으로 조절 가능)
   }, []); // 빈 배열을 두어 한 번만 실행되도록 설정
 
+  const [progressValue, setProgressValue] = useState(0);
+  const [showMessage, setShowMessage] = useState(false);
+
+  //Budget에서 받아온 데이터
+  const route = useRoute();
+  const { input_budget } = route.params;
+
+  const [inputCP, setInputCP] = useState([]);
+
   const [overlay1, setOverlay1] = useState(false);
   const [overlay2, setOverlay2] = useState(false);
   const [overlay3, setOverlay3] = useState(false);
@@ -40,34 +40,17 @@ function MainScreen({ navigation }) {
   const [overlay6, setOverlay6] = useState(false);
 
   const toggleOverlay1 = () => {
-    setOverlay1(!overlay1);
-
-    // overlay1 값에 따라 inputCP 업데이트
-    setInputCP(prevInputCP => {
-      if (overlay1) {
-        // overlay1이 true일 때 1을 추가
-        return [...prevInputCP, 1];
-      } else {
-        // overlay1이 false일 때 1을 제거
-        return prevInputCP.filter(item => item !== 1);
-      }
-    });
-    console.log(inputCP);
+    console.log('선택 직후 overlay1상태:',overlay1);
+    if (!overlay1) {
+      setInputCP(inputCP.filter(item => item !== 1)); // 숫자 1을 제거
+    } else {
+      setInputCP([...inputCP, 1]); // 숫자 1을 추가
+    }
+    setOverlay1(!overlay1); // overlay1 상태를 반전
+    console.log('toggleOverlay1 적용후 overlay1상태:', inputCP, overlay1);
   }
   const toggleOverlay2 = () => {
     setOverlay2(!overlay2);
-
-    // overlay1 값에 따라 inputCP 업데이트
-    setInputCP(prevInputCP => {
-      if (overlay2) {
-        // overlay1이 true일 때 1을 추가
-        return [...prevInputCP, 2];
-      } else {
-        // overlay1이 false일 때 1을 제거
-        return prevInputCP.filter(item => item !== 2);
-      }
-    });
-
     console.log(inputCP);
   }
   const toggleOverlay3 = () => {

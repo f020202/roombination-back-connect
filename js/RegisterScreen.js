@@ -31,7 +31,7 @@ function MainScreen({ navigation }) {
 
             <StatusBar style="auto" />
 
-            <TouchableOpacity activeOpacity={0.6} style={{ opacity: 0.8, marginTop:25, }}>
+            <TouchableOpacity onPress={() => navigation.navigate('budget', { click: count })} activeOpacity={0.6} style={{ opacity: 0.8, marginTop:25, }}>
                 <LinearGradient
                     colors={['#81d8f6', '#62cef4', '#5fc7f1', '#6fbbf2', '#79b4f3', '#74a6f3']}
                     start={{ x: 0.0, y: 1.0 }} end={{ x: 1.0, y: 1.0 }}
