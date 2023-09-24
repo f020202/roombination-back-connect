@@ -14,14 +14,17 @@ function MainScreen({ navigation }) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
 
   async function signIn() {
     try {
       const user = await Auth.signIn(username, password);
       console.log('user:', user);
+      navigation.navigate('budget');
     } catch (error) {
       console.log('error signing in', error);
+      setError(error.message); // 에러 메시지 설정
     }
   }
 
@@ -51,6 +54,10 @@ function MainScreen({ navigation }) {
         </View>
 
         <StatusBar style="auto" />
+
+        {error && (
+          <Text style={{ color: 'red', marginTop: 10 }}>{error}</Text>
+        )}
 
         <TouchableOpacity onPress={() => signIn()} activeOpacity={0.6} style={{ opacity: 0.8 }}>
           <LinearGradient

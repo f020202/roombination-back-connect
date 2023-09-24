@@ -11,6 +11,15 @@ import wood from '../assets/color/wood.jpg';
 
 function MainScreen({ navigation }) {
 
+  const [inputCP, setInputCP] = useState([]);
+
+  //Budget에서 받아온 데이터
+  const route = useRoute();
+  const { input_budget } = route.params;
+
+  const [progressValue, setProgressValue] = useState(0);
+  const [showMessage, setShowMessage] = useState(false);
+
   useEffect(() => {
     setTimeout(() => {
       setProgressValue(0.3);
@@ -23,15 +32,6 @@ function MainScreen({ navigation }) {
     }, 100); // 1초 후에 0.3으로 변경 (원하는 시간으로 조절 가능)
   }, []); // 빈 배열을 두어 한 번만 실행되도록 설정
 
-  const [progressValue, setProgressValue] = useState(0);
-  const [showMessage, setShowMessage] = useState(false);
-
-  //Budget에서 받아온 데이터
-  const route = useRoute();
-  const { input_budget } = route.params;
-
-  const [inputCP, setInputCP] = useState([]);
-
   const [overlay1, setOverlay1] = useState(false);
   const [overlay2, setOverlay2] = useState(false);
   const [overlay3, setOverlay3] = useState(false);
@@ -39,36 +39,81 @@ function MainScreen({ navigation }) {
   const [overlay5, setOverlay5] = useState(false);
   const [overlay6, setOverlay6] = useState(false);
 
+
   const toggleOverlay1 = () => {
-    console.log('선택 직후 overlay1상태:',overlay1);
-    if (!overlay1) {
-      setInputCP(inputCP.filter(item => item !== 1)); // 숫자 1을 제거
-    } else {
-      setInputCP([...inputCP, 1]); // 숫자 1을 추가
-    }
-    setOverlay1(!overlay1); // overlay1 상태를 반전
-    console.log('toggleOverlay1 적용후 overlay1상태:', inputCP, overlay1);
+    setOverlay1(!overlay1);
+
+    setInputCP(prevInputCP => {
+      if (!overlay1) {
+        return [...prevInputCP, 1];
+      } else {
+        return prevInputCP.filter(item => item !== 1);
+      }
+    });
   }
+
   const toggleOverlay2 = () => {
     setOverlay2(!overlay2);
-    console.log(inputCP);
+
+    setInputCP(prevInputCP => {
+      if (!overlay2) {
+        return [...prevInputCP, 2];
+      } else {
+        return prevInputCP.filter(item => item !== 2);
+      }
+    });
   }
+
   const toggleOverlay3 = () => {
     setOverlay3(!overlay3);
-    console.log(inputCP);
+
+    setInputCP(prevInputCP => {
+      if (!overlay3) {
+        return [...prevInputCP, 3];
+      } else {
+        return prevInputCP.filter(item => item !== 3);
+      }
+    });
   }
+
   const toggleOverlay4 = () => {
     setOverlay4(!overlay4);
-    console.log(inputCP);
+
+    setInputCP(prevInputCP => {
+      if (!overlay4) {
+        return [...prevInputCP, 4];
+      } else {
+        return prevInputCP.filter(item => item !== 4);
+      }
+    });
   }
   const toggleOverlay5 = () => {
     setOverlay5(!overlay5);
-    console.log(inputCP);
+
+    setInputCP(prevInputCP => {
+      if (!overlay5) {
+        return [...prevInputCP, 5];
+      } else {
+        return prevInputCP.filter(item => item !== 5);
+      }
+    });
   }
   const toggleOverlay6 = () => {
     setOverlay6(!overlay6);
-    console.log(inputCP);
+
+    setInputCP(prevInputCP => {
+      if (!overlay6) {
+        return [...prevInputCP, 6];
+      } else {
+        return prevInputCP.filter(item => item !== 6);
+      }
+    });
   }
+
+  useEffect(() => {
+    console.log("inputCP updated:", inputCP);
+  }, [inputCP]);
+
 
   const isNoOverlaySelected = () => {
     return !overlay1 && !overlay2 && !overlay3 && !overlay4 && !overlay5 && !overlay6;
@@ -89,7 +134,7 @@ function MainScreen({ navigation }) {
       return; // 이동하지 않음
     }
 
-    // 선택한 overlay가 1개 이상인 경우 다음 화면으로 이동
+    // 하드코딩
     navigation.navigate('furniture', {
       input_username: '',
       input_budget: input_budget,
@@ -97,10 +142,6 @@ function MainScreen({ navigation }) {
       input_fp: [],
     });
   };
-
-
-
-
 
   return (
     <View style={styles.container2}>
@@ -112,8 +153,6 @@ function MainScreen({ navigation }) {
         <Text style={styles.daskcolor}>알려주세요</Text>
         <Text style={styles.daskcolortiny}>여러개를 선택해도 좋아요!</Text>
       </View>
-
-      <Text>입력데이터: {input_budget}</Text>
 
       <View style={styles.dday2}>
         <View style={styles.dday}>
@@ -136,8 +175,8 @@ function MainScreen({ navigation }) {
 
         <View style={{ flexDirection: 'row', margin: 20 }}>
           <Text style={{ marginLeft: 15 }}>레드</Text>
-          <Text style={{ marginLeft: 85 }}>그린</Text>
-          <Text style={{ marginLeft: 85 }}>블루</Text>
+          <Text style={{ marginLeft: 83 }}>그린</Text>
+          <Text style={{ marginLeft: 80 }}>블루</Text>
         </View>
 
 
@@ -159,10 +198,11 @@ function MainScreen({ navigation }) {
         </View>
 
 
+
         <View style={{ flexDirection: 'row', margin: 20 }}>
-          <Text style={{ marginLeft: 15 }}>화이트</Text>
+          <Text style={{ marginLeft: 14 }}>화이트</Text>
           <Text style={{ marginLeft: 75 }}>블랙</Text>
-          <Text style={{ marginLeft: 85 }}>우드</Text>
+          <Text style={{ marginLeft: 75 }}>우드</Text>
         </View>
 
       </View>

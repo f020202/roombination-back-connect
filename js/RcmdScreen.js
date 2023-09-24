@@ -170,7 +170,7 @@ function MainScreen() {
       <StatusBar style="block"></StatusBar>
 
       <View style={styles.ask1}>
-        <Text style={styles.askcolor}>Username님만을 위한</Text>
+        <Text style={styles.askcolor}>당신만을 위한</Text>
         <Text style={styles.askcolor}>추천 인테리어입니다</Text>
       </View>
 

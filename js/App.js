@@ -106,6 +106,7 @@ function App({navigation}){
         <Stack.Screen name="main" component={Root}
         options={{
           headerShown:false,
+          gesturesEnabled: false,
         }}
         />
 
@@ -136,6 +137,7 @@ const Root = () => {
               unmountOnBlur:true,
               tabBarLabel: '홈',
               animationEnabled: false,
+              gesturesEnabled: false,
               tabBarIcon: ({focused}) => (<Ionicons name="home" size={24} color="black" style={{color:focused ? '#4e9bde' :'#BDBDBD', marginTop:14,}}/>)
             })}/>
 
@@ -175,6 +177,9 @@ function HomeStackScreen({navigation}){
         options={{
           title:'',
           headerShown:false,
+          navigationOptions: {
+            gesturesEnabled: false
+          },
           headerLeft:()=>
             <View>
               <Text style={{fontWeight:'700',marginLeft:30, fontSize:21, marginBottom:6, }}>홈</Text>

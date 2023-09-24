@@ -16,16 +16,34 @@ import imagePath7 from '../assets/furniture/closet.jpg';
 import imagePath8 from '../assets/furniture/light.jpg';
 import imagePath9 from '../assets/furniture/rug.jpg';
 
+import { Auth } from 'aws-amplify';
+
 
 function MainScreen({ navigation }) {
   const [progressValue, setProgressValue] = useState(0);
 
+  // Update User Attribute 함수
+  const { attributes } = Auth.currentAuthenticatedUser();
+
+
+  async function updateUserAttributes(budget, cp, fp) {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      const result = await Auth.updateUserAttributes(user, {
+        "custom:budget": budget,
+        "custom:color_preference": cp.toString(),
+        "custom:furniture_preference": fp.toString()
+      });
+      console.log(result); // SUCCESS
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   //Budget에서 받아온 데이터
   const route = useRoute();
-  const { input_username } = route.params;
   const { input_budget } = route.params;
   const { input_cp } = route.params;
-  const { input_fp } = route.params;
 
   useEffect(() => {
     setTimeout(() => {
@@ -59,7 +77,6 @@ function MainScreen({ navigation }) {
   };
 
 
-
   const handleNextPress = () => {
     const selectedOverlaysCount =
       (overlay1 ? 1 : 0) +
@@ -79,8 +96,11 @@ function MainScreen({ navigation }) {
     }
 
     // 선택한 overlay가 1개 이상인 경우 다음 화면으로 이동
+    updateUserAttributes(input_budget, input_cp, inputFP )
     navigation.navigate('main');
   };
+
+  const [inputFP, setInputFP] = useState([]);
 
   const [overlay1, setOverlay1] = useState(false);
   const [overlay2, setOverlay2] = useState(false);
@@ -95,31 +115,115 @@ function MainScreen({ navigation }) {
 
   const toggleOverlay1 = () => {
     setOverlay1(!overlay1);
+
+    setInputFP(prevInputFP => {
+      if (!overlay1) {
+        return [...prevInputFP, 1];
+      } else {
+        return prevInputFP.filter(item => item !== 1);
+      }
+    });
   }
+
   const toggleOverlay2 = () => {
     setOverlay2(!overlay2);
+
+    setInputFP(prevInputFP => {
+      if (!overlay2) {
+        return [...prevInputFP, 2];
+      } else {
+        return prevInputFP.filter(item => item !== 2);
+      }
+    });
   }
+
   const toggleOverlay3 = () => {
     setOverlay3(!overlay3);
+
+    setInputFP(prevInputFP => {
+      if (!overlay3) {
+        return [...prevInputFP, 3];
+      } else {
+        return prevInputFP.filter(item => item !== 3);
+      }
+    });
   }
+
   const toggleOverlay4 = () => {
     setOverlay4(!overlay4);
+
+    setInputFP(prevInputFP => {
+      if (!overlay4) {
+        return [...prevInputFP, 4];
+      } else {
+        return prevInputFP.filter(item => item !== 4);
+      }
+    });
   }
+
   const toggleOverlay5 = () => {
     setOverlay5(!overlay5);
+
+    setInputFP(prevInputFP => {
+      if (!overlay5) {
+        return [...prevInputFP, 5];
+      } else {
+        return prevInputFP.filter(item => item !== 5);
+      }
+    });
   }
+
   const toggleOverlay6 = () => {
     setOverlay6(!overlay6);
+
+    setInputFP(prevInputFP => {
+      if (!overlay6) {
+        return [...prevInputFP, 6];
+      } else {
+        return prevInputFP.filter(item => item !== 6);
+      }
+    });
   }
+
   const toggleOverlay7 = () => {
     setOverlay7(!overlay7);
+
+    setInputFP(prevInputFP => {
+      if (!overlay7) {
+        return [...prevInputFP, 7];
+      } else {
+        return prevInputFP.filter(item => item !== 7);
+      }
+    });
   }
+
   const toggleOverlay8 = () => {
     setOverlay8(!overlay8);
+
+    setInputFP(prevInputFP => {
+      if (!overlay8) {
+        return [...prevInputFP, 8];
+      } else {
+        return prevInputFP.filter(item => item !== 8);
+      }
+    });
   }
+
   const toggleOverlay9 = () => {
     setOverlay9(!overlay9);
+
+    setInputFP(prevInputFP => {
+      if (!overlay9) {
+        return [...prevInputFP, 9];
+      } else {
+        return prevInputFP.filter(item => item !== 9);
+      }
+    });
   }
+
+  useEffect(() => {
+    console.log("inputFP updated:", inputFP);
+  }, [inputFP]);
 
   return (
 
@@ -131,10 +235,6 @@ function MainScreen({ navigation }) {
         <Text style={styles.askcolor}>추천받을 가구 4개를</Text>
         <Text style={styles.askcolor}>선택해주세요</Text>
       </View>
-
-
-      <Text>입력데이터: {input_budget}</Text>
-      <Text>입력데이터: {input_cp}</Text>
 
       <View style={styles.day2}>
         <View style={styles.day}>
@@ -214,11 +314,11 @@ function MainScreen({ navigation }) {
       </View>
 
       {showMessage && isNoOverlaySelected() && (
-        <Text style={{ color: 'red' }}>4개 이상 선택해주세요.</Text>
+        <Text style={{ color: 'red', marginTop:15 }}>4개 이상 선택해주세요.</Text>
       )}
 
 
-      <View style={{ alignItems: 'flex-end', marginTop: 70, }}>
+      <View style={{ alignItems: 'flex-end', marginTop: 40, }}>
         <TouchableOpacity onPress={handleNextPress} activeOpacity={0.5} style={{ opacity: 0.7 }}>
           <LinearGradient
             colors={['#81d8f6', '#62cef4', '#5fc7f1', '#6fbbf2', '#79b4f3', '#74a6f3']}
@@ -265,7 +365,7 @@ const styles = StyleSheet.create({
   },
   day: {
     flexDirection: 'row',
-    marginTop: 25
+    marginTop: 10
   },
   day2: {
     marginLeft: 10,

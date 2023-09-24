@@ -37,11 +37,11 @@ function MainScreen({ navigation }) {
       // 입력이 비어 있지 않은 경우
       setIsInputEmpty(false);
       setShowErrorMessage(false); // 에러 메시지를 숨기도록 설정
-    
+      console.log(inputText)
       // 여기에서 다음 화면으로 이동하거나 다른 작업을 수행할 수 있습니다.
       navigation.navigate('color', {
         input_username: '',
-        input_budget: inputText, 
+        input_budget: inputText,
         input_cp: [],
         input_fp: [],
       });
@@ -56,6 +56,7 @@ function MainScreen({ navigation }) {
       <View style={styles.ask1}>
         <Text style={styles.askcolor}>전체 예산을</Text>
         <Text style={styles.askcolor}>알려주세요</Text>
+        <Text style={styles.daskcolortiny}>1,000만원 이내로 설정해주세요!</Text>
       </View>
 
       <Animatable.View
@@ -63,16 +64,22 @@ function MainScreen({ navigation }) {
         style={{ flexDirection: 'row', alignItems: 'center' }}
         animation={showErrorMessage ? 'shake' : undefined} // Apply the "shake" animation when there's an error
       >
+
         <TextInput
           style={styles.textInput}
           keyboardType="numeric"
           returnKeyType="done"
           placeholder="250,000"
+          value={inputText}
           onChangeText={(text) => {
-            setInputText(text);
-            setIsInputEmpty(text.trim() === '');
+            if (text === '' || (parseInt(text) <= 1000000)) {
+              setInputText(text);
+              setIsInputEmpty(text.trim() === '');
+            }
           }}
         />
+
+
         <Text style={{ fontSize: 38, color: '#BDBDBD', marginTop: 31, fontWeight: '400', marginLeft: 10 }}>
           원
         </Text>
@@ -130,6 +137,11 @@ const styles = StyleSheet.create({
   button: {
     flex: 1.4,
     marginLeft: 286,
+  },
+  daskcolortiny: {
+    marginTop: 10,
+    fontSize: 15,
+    fontWeight: "400",
   },
 });
 
